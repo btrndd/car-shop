@@ -6,7 +6,7 @@
   
 import { z } from 'zod';
 
-export const vehicleSchema = z.object({
+export const VehicleSchema = z.object({
   model: z.string({
     required_error: 'Model is required',
     invalid_type_error: 'Model must be a string',
@@ -35,4 +35,4 @@ export const vehicleSchema = z.object({
   }).int({ message: 'ButValue must be integer' }),
 });
 
-export type Vehicle = z.infer<typeof vehicleSchema>;
+export type Vehicle = z.infer<typeof VehicleSchema>;

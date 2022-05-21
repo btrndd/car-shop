@@ -21,6 +21,10 @@ class App {
     this.app.use(router);
   }
 
+  public addMiddleware(middleware: any) {
+    this.app.use(middleware);
+  }
+
   public getApp() {
     return this.app;
   }
