@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import Controller, { RequestWithBody } from './BaseController';
 import MotorcycleService from '../services/MotorcycleService';
 import { Motorcycle } from '../interfaces/MotorcycleInterface';
-import HttpException from '../interfaces/HttpException';
+import HttpException from '../middlewares/errorHandlerMiddleware';
 import { ErrorCode, ErrorMessage } from '../interfaces/ErrorEnum';
 
 class MotorcycleController extends Controller<Motorcycle> {

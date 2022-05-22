@@ -3,7 +3,7 @@ import App from './app';
 
 import CarController from './controllers/CarController';
 import { Car } from './interfaces/CarInterface';
-import errorHandlerMiddleware from './middlewares/errorHandlerMiddleware';
+import HttpException from './middlewares/errorHandlerMiddleware';
 import { Motorcycle } from './interfaces/MotorcycleInterface';
 import MotorcycleController from './controllers/MotorcycleController';
 
@@ -19,7 +19,7 @@ const motorcyleRouter = new CustomRouter<Motorcycle>();
 motorcyleRouter.addRoute(motorcycleController, '/motorcycles');
 server.addRouter(motorcyleRouter.router);
 
-server.addMiddleware(errorHandlerMiddleware.manage);
-server.addMiddleware(errorHandlerMiddleware.server);
+server.addMiddleware(HttpException.manage);
+server.addMiddleware(HttpException.server);
 
 export default server;

@@ -4,7 +4,7 @@ import {
 } from '../interfaces/MotorcycleInterface';
 import BaseService from './BaseService';
 import MotorcycleModel from '../models/MotorcycleModel';
-import HttpException from '../interfaces/HttpException';
+import HttpException from '../middlewares/errorHandlerMiddleware';
 import { ErrorCode, ErrorMessage } from '../interfaces/ErrorEnum';
 import { VehicleSchema } from '../interfaces/VehicleInterface';
 

@@ -1,7 +1,7 @@
 import { Car, CarSchema } from '../interfaces/CarInterface';
 import BaseService from './BaseService';
 import CarModel from '../models/CarModel';
-import HttpException from '../interfaces/HttpException';
+import HttpException from '../middlewares/errorHandlerMiddleware';
 import { ErrorCode, ErrorMessage } from '../interfaces/ErrorEnum';
 import { VehicleSchema } from '../interfaces/VehicleInterface';
 

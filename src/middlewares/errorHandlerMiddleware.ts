@@ -1,29 +1,41 @@
 import { Request, Response, NextFunction } from 'express';
-import HttpException from '../interfaces/HttpException';
+import HttpExceptionInterface from '../interfaces/HttpExceptionInterface';
 
-const manage = (
-  err: HttpException,
-  _req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
-  const errorList = [404, 400, 422, 409, 401];
+class HttpException extends Error implements HttpExceptionInterface {
+  code: number;
 
-  const status = errorList.filter((error) => error === err.code);
-  if (!status[0]) {
-    return next(err);
+  error: string;
+
+  constructor(code: number, error: string) {
+    super();
+    this.code = code;
+    this.error = error;
   }
-  res.status(status[0]).json({ error: err.error });
-};
 
-const server = (
-  _err: HttpException,
-  _req: Request,
-  res: Response,
-  next: NextFunction,
-) => {  
-  res.status(500).json({ error: 'Something went wrong' });
-  next();
-};
+  static manage(
+    err: HttpException,
+    _req: Request,
+    res: Response,
+    next: NextFunction,
+  ) {
+    const errorList = [404, 400, 422, 409, 401];
 
-export default { server, manage };
+    const status = errorList.filter((error) => error === err.code);
+    if (!status[0]) {
+      return next(err);
+    }
+    res.status(status[0]).json({ error: err.error });
+  }
+
+  static server(
+    _err: HttpException,
+    _req: Request,
+    res: Response,
+    next: NextFunction,
+  ) {  
+    res.status(500).json({ error: 'Something went wrong' });
+    next();
+  }
+}
+
+export default HttpException;

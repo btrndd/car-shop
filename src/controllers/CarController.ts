@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import Controller, { RequestWithBody } from './BaseController';
 import CarService from '../services/CarService';
 import { Car } from '../interfaces/CarInterface';
-import HttpException from '../interfaces/HttpException';
+import HttpException from '../middlewares/errorHandlerMiddleware';
 import { ErrorCode, ErrorMessage } from '../interfaces/ErrorEnum';
 
 class CarController extends Controller<Car> {
