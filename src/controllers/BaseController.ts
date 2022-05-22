@@ -8,7 +8,7 @@ export interface RequestWithBody<T> extends Request {
 abstract class BaseController<T> {
   abstract route: string;
 
-  constructor(protected service: BaseService<T>) { }
+  constructor(public service: BaseService<T>) { }
 
   abstract create(
     req: RequestWithBody<T>,

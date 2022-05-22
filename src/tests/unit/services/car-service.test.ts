@@ -140,7 +140,7 @@ describe('Service layer car tests', () => {
         sinon.restore();
       })
     
-      it('return null', async () => {
+      it('return an error message', async () => {
         const id = '628a9e319f9bdbad802049f2';
         const response = await carService.readOne(id);
   
