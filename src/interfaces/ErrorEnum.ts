@@ -9,7 +9,7 @@ enum ErrorCode {
 enum ErrorMessage {
   internal = 'Internal Server Error',
   notFound = 'Object not found',
-  requiredId = 'Id is required',
+  requiredId = 'Id must have 24 hexadecimal characters',
   requiredBody = 'Body is required',
   badRequest = 'Bad request',
 }

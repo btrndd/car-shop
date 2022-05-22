@@ -13,7 +13,7 @@ const manage = (
   if (!status[0]) {
     return next(err);
   }
-  res.status(status[0]).json({ message: err.error });
+  res.status(status[0]).json({ error: err.error });
 };
 
 const server = (
@@ -22,7 +22,7 @@ const server = (
   res: Response,
   next: NextFunction,
 ) => {  
-  res.status(500).json({ message: 'Something went wrong' });
+  res.status(500).json({ error: 'Something went wrong' });
   next();
 };
 

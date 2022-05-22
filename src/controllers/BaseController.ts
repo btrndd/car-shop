@@ -34,5 +34,17 @@ abstract class BaseController<T> {
     res: Response<T>,
     next: NextFunction
   ): Promise<typeof res | undefined>;
+
+  abstract update(
+    req: RequestWithBody<T>,
+    res: Response<T>,
+    next: NextFunction
+  ): Promise<typeof res | undefined>;
+
+  abstract delete(
+    _req: Request,
+    res: Response,
+    next: NextFunction,    
+  ): Promise<typeof res | undefined>;
 }
 export default BaseController;

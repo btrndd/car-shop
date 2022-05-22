@@ -45,11 +45,49 @@ class CarController extends Controller<Car> {
   ): Promise<typeof res | undefined> => {
     const { id } = req.params;
     try {
-      const car = await this.service.readOne(id);
-      if (!car) {
-        throw new HttpException(ErrorCode.notFound, ErrorMessage.notFound);
+      if (!id || id.length < 24) {
+        throw new HttpException(ErrorCode.isRequired, ErrorMessage.requiredId);
       }
+      const car = await this.service.readOne(id);
       return res.status(200).json(car);
+    } catch (err) {
+      next(err);
+    }
+  };
+
+  update = async (req: RequestWithBody<Car>, res: Response, next: NextFunction):
+  Promise<typeof res | undefined> => {
+    const { body } = req;
+    const { id } = req.params;
+    try {
+      if (!id || id.length < 24) {
+        throw new HttpException(ErrorCode.isRequired, ErrorMessage.requiredId);
+      }
+      if (!body) {
+        throw new HttpException(
+          ErrorCode.isRequired,
+          ErrorMessage.requiredBody,
+        );
+      }
+      const car = await this.service.update(id, body);
+      return res.status(200).json(car);
+    } catch (err) {
+      next(err);
+    }
+  };
+
+  delete = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<typeof res | undefined> => {
+    const { id } = req.params;
+    try {
+      if (!id || id.length < 24) {
+        throw new HttpException(ErrorCode.isRequired, ErrorMessage.requiredId);
+      }
+      await this.service.delete(id);
+      return res.status(204).json();
     } catch (err) {
       next(err);
     }
