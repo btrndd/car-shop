@@ -1,20 +1,23 @@
-import { Car, CarSchema } from '../interfaces/CarInterface';
+import { 
+  Motorcycle,
+  MotorcycleSchema,
+} from '../interfaces/MotorcycleInterface';
 import BaseService from './BaseService';
-import CarModel from '../models/CarModel';
+import MotorcycleModel from '../models/MotorcycleModel';
 import HttpException from '../interfaces/HttpException';
 import { ErrorCode, ErrorMessage } from '../interfaces/ErrorEnum';
 import { VehicleSchema } from '../interfaces/VehicleInterface';
 
-class CarService extends BaseService<Car> {
-  constructor(model = new CarModel()) {
+class MotorcycleService extends BaseService<Motorcycle> {
+  constructor(model = new MotorcycleModel()) {
     super(model);
   }
 
-  create = async (obj: Car) => {
-    const parsedCar = CarSchema.safeParse(obj);
+  create = async (obj: Motorcycle) => {
+    const parsedMoto = MotorcycleSchema.safeParse(obj);
     const parsedVehicle = VehicleSchema.safeParse(obj);
-    if (!parsedCar.success) {
-      throw new HttpException(ErrorCode.required, parsedCar.error.message);
+    if (!parsedMoto.success) {
+      throw new HttpException(ErrorCode.required, parsedMoto.error.message);
     }
     if (!parsedVehicle.success) {
       throw new HttpException(
@@ -26,18 +29,18 @@ class CarService extends BaseService<Car> {
   };
 
   readOne = async (id: string) => {
-    const car = await this.model.readOne(id);
-    if (!car) {
+    const moto = await this.model.readOne(id);
+    if (!moto) {
       throw new HttpException(ErrorCode.notFound, ErrorMessage.notFound);
     }
-    return car;
+    return moto;
   };
 
-  update = async (id: string, obj: Car) => {
-    const parsedCar = CarSchema.safeParse(obj);
+  update = async (id: string, obj: Motorcycle) => {
+    const parsedMoto = MotorcycleSchema.safeParse(obj);
     const parsedVehicle = VehicleSchema.safeParse(obj);
-    if (!parsedCar.success) {
-      throw new HttpException(ErrorCode.required, parsedCar.error.message);
+    if (!parsedMoto.success) {
+      throw new HttpException(ErrorCode.required, parsedMoto.error.message);
     }
     if (!parsedVehicle.success) {
       throw new HttpException(
@@ -45,20 +48,20 @@ class CarService extends BaseService<Car> {
         parsedVehicle.error.message,
       );
     }
-    const car = await this.model.update(id, obj);
-    if (!car) {
+    const moto = await this.model.update(id, obj);
+    if (!moto) {
       throw new HttpException(ErrorCode.notFound, ErrorMessage.notFound);
     }
-    return car;
+    return moto;
   };
 
   delete = async (id: string) => {
-    const car = await this.model.delete(id);
-    if (!car) {
+    const moto = await this.model.delete(id);
+    if (!moto) {
       throw new HttpException(ErrorCode.notFound, ErrorMessage.notFound);
     }
-    return car;
+    return moto;
   };
 }
 
-export default CarService;
+export default MotorcycleService;

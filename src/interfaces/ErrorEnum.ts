@@ -1,6 +1,6 @@
 enum ErrorCode {
   notFound = 404,
-  isRequired = 400,
+  required = 400,
   invalidData = 422,
   alreadyExists = 409,
   notAuthorized = 401,

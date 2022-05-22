@@ -1,16 +1,16 @@
 import { NextFunction, Request, Response } from 'express';
 import Controller, { RequestWithBody } from './BaseController';
-import CarService from '../services/CarService';
-import { Car } from '../interfaces/CarInterface';
+import MotorcycleService from '../services/MotorcycleService';
+import { Motorcycle } from '../interfaces/MotorcycleInterface';
 import HttpException from '../interfaces/HttpException';
 import { ErrorCode, ErrorMessage } from '../interfaces/ErrorEnum';
 
-class CarController extends Controller<Car> {
+class MotorcycleController extends Controller<Motorcycle> {
   private _route: string;
 
   constructor(
-    service = new CarService(),
-    route = '/cars',
+    service = new MotorcycleService(),
+    route = '/motorcycles',
   ) {
     super(service);
     this._route = route;
@@ -19,7 +19,7 @@ class CarController extends Controller<Car> {
   get route() { return this._route; }
 
   create = async (
-    req: RequestWithBody<Car>,
+    req: RequestWithBody<Motorcycle>,
     res: Response,
     next: NextFunction,
   ): Promise<typeof res | undefined> => {
@@ -31,8 +31,8 @@ class CarController extends Controller<Car> {
           ErrorMessage.requiredBody,
         );
       }
-      const car = await this.service.create(body);
-      return res.status(201).json(car);
+      const moto = await this.service.create(body);
+      return res.status(201).json(moto);
     } catch (err) {
       next(err);
     }
@@ -48,29 +48,29 @@ class CarController extends Controller<Car> {
       if (!id || id.length < 24) {
         throw new HttpException(ErrorCode.required, ErrorMessage.requiredId);
       }
-      const car = await this.service.readOne(id);
-      return res.status(200).json(car);
+      const moto = await this.service.readOne(id);
+      return res.status(200).json(moto);
     } catch (err) {
       next(err);
     }
   };
 
-  update = async (req: RequestWithBody<Car>, res: Response, next: NextFunction):
+  update = async (
+    req: RequestWithBody<Motorcycle>,
+    res: Response, 
+    next: NextFunction,
+  ):
   Promise<typeof res | undefined> => {
-    const { body } = req;
-    const { id } = req.params;
+    const { body, params: { id } } = req;
     try {
-      if (!id || id.length < 24) {
+      if (!id || id.length < 24) { 
         throw new HttpException(ErrorCode.required, ErrorMessage.requiredId);
-      }
+      }        
       if (!body) {
-        throw new HttpException(
-          ErrorCode.required,
-          ErrorMessage.requiredBody,
-        );
+        throw new HttpException(ErrorCode.required, ErrorMessage.requiredBody);
       }
-      const car = await this.service.update(id, body);
-      return res.status(200).json(car);
+      const moto = await this.service.update(id, body);
+      return res.status(200).json(moto);
     } catch (err) {
       next(err);
     }
@@ -94,4 +94,4 @@ class CarController extends Controller<Car> {
   };
 }
 
-export default CarController;
+export default MotorcycleController;
